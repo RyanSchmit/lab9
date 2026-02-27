@@ -1,33 +1,32 @@
 package org.example;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class StageQueue {
-    private final LinkedList<String> items = new LinkedList<>();
-
-    private final ReentrantLock lock = new ReentrantLock(true);
+public class StageQueue<T> {
+    private final Deque<T> q = new ArrayDeque<>();
+    private final ReentrantLock lock = new ReentrantLock();
     private final Condition notEmpty = lock.newCondition();
 
-    public void put(String equation) {
-        // Implementation to add the equation to the queue
+    public void put(T item) {
         lock.lock();
         try {
-            items.add(equation);
-            notEmpty.signal(); // Signal that a new item is added
+            q.addLast(item);
+            notEmpty.signal();
         } finally {
             lock.unlock();
         }
     }
 
-    public String take() throws InterruptedException {
+    public T take() throws InterruptedException {
         lock.lock();
         try {
-            while (items.isEmpty()) {
-                notEmpty.await(); // Wait until an item is available
+            while (q.isEmpty()) {
+                notEmpty.await();
             }
-            return items.removeFirst();
+            return q.removeFirst();
         } finally {
             lock.unlock();
         }
