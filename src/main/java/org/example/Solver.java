@@ -1,11 +1,11 @@
 package org.example;
 
 // AKA Consumer
-public class LocalWorker implements Runnable {
-    private final Repository repository;
+public class Solver implements Runnable {
+    private final StageQueue queue;
 
-    public LocalWorker(Repository repository) {
-        this.repository = repository;
+    public Solver(StageQueue queue) {
+        this.queue = queue;
     }
 
 
@@ -15,7 +15,7 @@ public class LocalWorker implements Runnable {
             while (true) {
                 //Slow down so remote worker gets some
                 Thread.sleep(1000);
-                String job = repository.getNextJob();
+                String job = queue.take();
                 if (job == null || job.isBlank()) {
                     System.out.println("No jobs available to process.");
                     return;
