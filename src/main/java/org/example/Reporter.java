@@ -1,4 +1,6 @@
 package org.example;
 
-public class Reporter {
+public class Reporter
+{
+    
 }
