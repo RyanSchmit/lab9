@@ -8,7 +8,6 @@ public class Solver implements Runnable {
         this.queue = queue;
     }
 
-
     @Override
     public void run() {
         try {
