@@ -1,13 +1,16 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+        final String STOP = "__STOP__";
 
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("i = " + i);
-        }
+        StageQueue q1 = new StageQueue();
+        StageQueue q2 = new StageQueue();
+
+
+
+        Generator generator = new Generator();
+
     }
 }
